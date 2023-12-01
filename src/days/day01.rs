@@ -6,15 +6,15 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     util::read_input("inputs/day01.txt")
         .map(|raw_input| (part_1(&raw_input), part_1(&transform(&raw_input))))
         .map(|(p1, p2)| {
-            println!("part 1: {}", p1);
-            println!("part 2: {}", p2);
+            println!("part 1: {:?}", p1);
+            println!("part 2: {:?}", p2);
             ()
         })
         .map_err(|e| e.into())
 }
 
-fn part_1(input: &str) -> u64 {
-    input
+fn part_1(input: &str) -> Result<u64, Box<dyn Error>> {
+    Ok(input
         .lines()
         .map(|line| {
             let nums: String = line.chars().filter(|c| c.is_ascii_digit()).collect();
@@ -22,9 +22,11 @@ fn part_1(input: &str) -> u64 {
             filtered_num.push(nums.chars().next().unwrap());
             filtered_num.push(nums.chars().next_back().unwrap());
 
-            filtered_num.parse::<u64>().unwrap()
+            filtered_num.parse::<u64>()
         })
-        .sum()
+        .flatten()
+        .sum())
+        
 }
 
 #[derive(Debug)]
