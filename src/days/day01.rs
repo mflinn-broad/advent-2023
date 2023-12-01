@@ -3,15 +3,14 @@ use std::error::Error;
 use crate::util;
 
 pub fn run() -> Result<(), Box<dyn Error>> {
-    util::read_input("inputs/day01.txt").and_then(|raw_input| {
-        Ok((part_1(&raw_input), part_1(&transform(&raw_input))))
-    })
-    .and_then(|(p1, p2)| {
-        println!("part 1: {}", p1);
-        println!("part 2: {}", p2);
-        Ok(())
-    })
-    .map_err(|e| e.into())
+    util::read_input("inputs/day01.txt")
+        .map(|raw_input| (part_1(&raw_input), part_1(&transform(&raw_input))))
+        .map(|(p1, p2)| {
+            println!("part 1: {}", p1);
+            println!("part 2: {}", p2);
+            ()
+        })
+        .map_err(|e| e.into())
 }
 
 fn part_1(input: &str) -> u64 {
