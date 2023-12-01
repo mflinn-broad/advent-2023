@@ -1,6 +1,7 @@
 use std::{
     fs::File,
-    io::{Read, Result}, path::Path,
+    io::{Read, Result},
+    path::Path,
 };
 
 pub fn read_input<P: AsRef<Path>>(path: P) -> Result<String> {
