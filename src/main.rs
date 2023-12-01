@@ -1,3 +1,5 @@
+use advent_2023::days;
+
 fn main() {
-    println!("Hello, world!");
+    days::run();
 }
