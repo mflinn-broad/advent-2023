@@ -8,15 +8,14 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .map(|(p1, p2)| {
             println!("part 1: {:?}", p1);
             println!("part 2: {:?}", p2);
-            ()
         })
         .map_err(|e| e.into())
 }
 
-fn part_1(input: &str) -> Result<u64, Box<dyn Error>> {
-    Ok(input
+fn part_1(input: &str) -> u64 {
+    input
         .lines()
-        .map(|line| {
+        .flat_map(|line| {
             let nums: String = line.chars().filter(|c| c.is_ascii_digit()).collect();
             let mut filtered_num = String::new();
             filtered_num.push(nums.chars().next().unwrap());
@@ -24,8 +23,7 @@ fn part_1(input: &str) -> Result<u64, Box<dyn Error>> {
 
             filtered_num.parse::<u64>()
         })
-        .flatten()
-        .sum())
+        .sum()
         
 }
 
