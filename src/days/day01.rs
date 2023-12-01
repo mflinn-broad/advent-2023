@@ -3,11 +3,11 @@ use crate::util;
 pub fn run() {
     let raw_input = util::read_input("inputs/day01.txt").unwrap();
     let transformed = transform(&raw_input);
-    println!("part 1: {}", part1(&raw_input));
-    println!("part 2: {}", part1(&transformed));
+    println!("part 1: {}", part_1(&raw_input));
+    println!("part 2: {}", part_1(&transformed));
 }
 
-fn part1(input: &str) -> u64 {
+fn part_1(input: &str) -> u64 {
     input
         .lines()
         .map(|line| {
@@ -51,18 +51,18 @@ impl From<&str> for Digit {
     }
 }
 
-impl Into<char> for Digit {
-    fn into(self) -> char {
-        match self {
-            Self::One => '1',
-            Self::Two => '2',
-            Self::Three => '3',
-            Self::Four => '4',
-            Self::Five => '5',
-            Self::Six => '6',
-            Self::Seven => '7',
-            Self::Eight => '8',
-            Self::Nine => '9',
+impl From<Digit> for char {
+    fn from(val: Digit) -> Self {
+        match val {
+            Digit::One => '1',
+            Digit::Two => '2',
+            Digit::Three => '3',
+            Digit::Four => '4',
+            Digit::Five => '5',
+            Digit::Six => '6',
+            Digit::Seven => '7',
+            Digit::Eight => '8',
+            Digit::Nine => '9',
         }
     }
 }
@@ -95,4 +95,24 @@ fn transform(input: &str) -> String {
             transformed
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    extern crate test;
+
+    use test::Bencher;
+
+    #[bench]
+    fn bench_part_1(b: &mut Bencher) {
+        let input = util::read_input("inputs/day01.txt").unwrap();
+        b.iter(|| part_1(&input));
+    }
+
+    #[bench]
+    fn bench_part_2(b: &mut Bencher) {
+        let input = util::read_input("inputs/day01.txt").unwrap();
+        b.iter(|| part_1(&transform(&input)));
+    }
 }
