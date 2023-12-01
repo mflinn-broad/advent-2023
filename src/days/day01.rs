@@ -1,10 +1,17 @@
+use std::error::Error;
+
 use crate::util;
 
-pub fn run() {
-    let raw_input = util::read_input("inputs/day01.txt").unwrap();
-    let transformed = transform(&raw_input);
-    println!("part 1: {}", part_1(&raw_input));
-    println!("part 2: {}", part_1(&transformed));
+pub fn run() -> Result<(), Box<dyn Error>> {
+    util::read_input("inputs/day01.txt").and_then(|raw_input| {
+        Ok((part_1(&raw_input), part_1(&transform(&raw_input))))
+    })
+    .and_then(|(p1, p2)| {
+        println!("part 1: {}", p1);
+        println!("part 2: {}", p2);
+        Ok(())
+    })
+    .map_err(|e| e.into())
 }
 
 fn part_1(input: &str) -> u64 {
@@ -86,7 +93,6 @@ fn transform(input: &str) -> String {
                     if line.starts_with(alpha_digit) {
                         transformed.push(Digit::from(alpha_digit).into());
                         line = &line[alpha_digit.len() - 2..];
-                        continue;
                     }
                 }
                 line = &line[1..];
