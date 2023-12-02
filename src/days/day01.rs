@@ -24,7 +24,6 @@ fn part_1(input: &str) -> u64 {
             filtered_num.parse::<u64>()
         })
         .sum()
-        
 }
 
 #[derive(Debug)]
