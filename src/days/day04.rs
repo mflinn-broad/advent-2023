@@ -1,5 +1,5 @@
-use std::error::Error;
 use std::collections::HashSet;
+use std::error::Error;
 
 use crate::util;
 
@@ -13,21 +13,17 @@ pub fn run() -> Result<(), Box<dyn Error>> {
 }
 
 fn part_1(cards: &[Card]) -> usize {
-    cards.iter()
-        .map(Card::score)
-        .sum()
+    cards.iter().map(Card::score).sum()
 }
 
 fn part_2(cards: &[Card]) -> usize {
     let mut result = vec![1; cards.len()];
-    cards.iter()
-        .enumerate()
-        .for_each(|(idx, card)| {
-            let winner_count = card.winning_numbers().len();
-            for i in (idx+1)..=(idx + winner_count) {
-                result[i] += result[idx]
-            }
-        });
+    cards.iter().enumerate().for_each(|(idx, card)| {
+        let winner_count = card.winning_numbers().len();
+        for i in (idx + 1)..=(idx + winner_count) {
+            result[i] += result[idx]
+        }
+    });
 
     result.iter().sum()
 }
@@ -39,14 +35,14 @@ struct Card {
 
 impl Card {
     fn winning_numbers(&self) -> Vec<usize> {
-        self.winning_numbers.intersection(&self.my_numbers).cloned().collect()
+        self.winning_numbers
+            .intersection(&self.my_numbers)
+            .cloned()
+            .collect()
     }
 
     fn from_card_list(input: &str) -> Vec<Self> {
-        input
-            .lines()
-            .map(Card::from)
-            .collect()
+        input.lines().map(Card::from).collect()
     }
 
     fn score(&self) -> usize {
@@ -66,14 +62,19 @@ impl From<&str> for Card {
         let (winners, mine) = card_data.split_once(" | ").unwrap();
         let winners = winners.trim();
         let mine = mine.trim();
-        let winning_numbers = winners.split_ascii_whitespace()
+        let winning_numbers = winners
+            .split_ascii_whitespace()
             .map(|num| num.parse().unwrap())
             .collect();
-        let my_numbers = mine.split_ascii_whitespace()
+        let my_numbers = mine
+            .split_ascii_whitespace()
             .map(|num| num.parse().unwrap())
             .collect();
 
-        Self { winning_numbers, my_numbers }
+        Self {
+            winning_numbers,
+            my_numbers,
+        }
     }
 }
 
