@@ -74,7 +74,6 @@ fn apply_map(inputs: &mut Vec<Range<i64>>, map: &RangeMap<i64, i64>) -> Vec<Rang
     out
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

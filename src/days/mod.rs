@@ -3,6 +3,7 @@ mod day02;
 mod day03;
 mod day04;
 mod day05;
+mod day06;
 
 pub fn run() {
     println!("Day 01 ***********");
@@ -15,4 +16,6 @@ pub fn run() {
     day04::run().expect("something is awry");
     println!("Day 05 ***********");
     day05::run().expect("yikes");
+    println!("Day 06 ***********");
+    day06::run().expect("womp womp");
 }
