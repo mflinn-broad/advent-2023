@@ -8,4 +8,5 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 itertools = "0.12.0"
+num-integer = "0.1.45"
 rangemap = "1.4.0"
