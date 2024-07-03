@@ -23,7 +23,7 @@ impl World {
         let mut visited = Vec::new();
         let mut curr_node = self.data.get(&self.start).unwrap();
         while !visited.contains(&curr_node.coords) {
-            let temp = curr_node.clone();
+            let temp = curr_node;
             if curr_node.has_upper_connection()
                 && !visited.contains(&(curr_node.coords.0 - 1, curr_node.coords.1))
             {
@@ -198,7 +198,7 @@ fn shoelace_area(vertices: &[(usize, usize)]) -> usize {
         .sum::<usize>()
         + vertices[0].0 * vertices[vertices.len() - 1].1;
     let discrim = left_lace as isize - right_lace as isize;
-    discrim.abs() as usize / 2
+    discrim.unsigned_abs() / 2
 }
 
 fn interior_area(vertices: &[(usize, usize)]) -> usize {
