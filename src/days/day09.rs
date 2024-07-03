@@ -14,11 +14,13 @@ fn part_1(input: Vec<Vec<i32>>) -> i32 {
 }
 
 fn part_2(mut input: Vec<Vec<i32>>) -> i32 {
-    input.iter_mut().map(|l| {
-        l.reverse();
-        reduce_pattern(l)
-    })
-    .sum()
+    input
+        .iter_mut()
+        .map(|l| {
+            l.reverse();
+            reduce_pattern(l)
+        })
+        .sum()
 }
 
 fn process(input: &str) -> Vec<Vec<i32>> {
