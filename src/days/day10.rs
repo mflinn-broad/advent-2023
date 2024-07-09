@@ -197,13 +197,11 @@ fn shoelace_area(vertices: &[(usize, usize)]) -> usize {
         .map(|n| vertices[n + 1].0 * vertices[n].1)
         .sum::<usize>()
         + vertices[0].0 * vertices[vertices.len() - 1].1;
-    let discrim = left_lace as isize - right_lace as isize;
-    discrim.unsigned_abs() / 2
+    left_lace.abs_diff(right_lace) / 2
 }
 
 fn interior_area(vertices: &[(usize, usize)]) -> usize {
-    let shoelace_area = shoelace_area(vertices);
-    shoelace_area + 1 - (vertices.len() / 2)
+    shoelace_area(vertices) + 1 - (vertices.len() / 2)
 }
 
 #[cfg(test)]
